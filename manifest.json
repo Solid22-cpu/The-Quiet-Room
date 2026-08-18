@@ -1,0 +1,17 @@
+{
+  "name": "The Quiet Room",
+  "short_name": "Quiet Room",
+  "description": "A quiet place for grounding, small affirmations, private journaling, and real support when things feel hollow.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1b2233",
+  "theme_color": "#1b2233",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
