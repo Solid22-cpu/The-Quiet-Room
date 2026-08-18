@@ -344,6 +344,7 @@
       <a class="link" href="#ground">Ground</a>
       <a class="link" href="#journal">Journal</a>
       <a class="link" href="#support">Support</a>
+      <a class="link" href="https://solid22-cpu.github.io/Solid22-site/" target="_blank" rel="noopener">Solid22 ↗</a>
     </div>
   </div>
   <div class="hero-eyebrow">a space, not a fix</div>
@@ -388,10 +389,16 @@
     <textarea id="journalText" placeholder="Start wherever feels honest..."></textarea>
     <div class="journal-row">
       <span class="journal-note" id="journalStatus">Saved privately on this device.</span>
-      <button class="journal-btn" id="journalSave">Save entry</button>
+      <div style="display:flex; gap:10px;">
+        <button class="affirm-btn" id="newPromptBtn" style="border-color:#c9bda0; color:#4a4436;">New prompt</button>
+        <button class="journal-btn" id="journalSave">Save entry</button>
+      </div>
     </div>
   </div>
   <div class="journal-saved" id="journalEntries"></div>
+  <div style="max-width:560px; margin:26px auto 0; text-align:right;">
+    <button id="clearAllBtn" style="background:none; border:none; color:#a08f6f; font-size:12px; text-decoration:underline; cursor:pointer;">Clear all entries from this device</button>
+  </div>
 </section>
 
 <section class="resources" id="support">
@@ -450,18 +457,30 @@
     affirmText.textContent = '"' + affirmations[affirmIndex] + '"';
   }
   document.getElementById('affirmNext').onclick = () => {
-    affirmIndex = (affirmIndex + 1) % affirmations.length;
+    let next = affirmIndex;
+    while (next === affirmIndex && affirmations.length > 1){
+      next = Math.floor(Math.random() * affirmations.length);
+    }
+    affirmIndex = next;
     showAffirmation();
   };
   showAffirmation();
 
   const breathLabel = document.getElementById('breathLabel');
-  const phases = ['breathe in…', 'hold…', 'breathe out…'];
+  const phases = [
+    { text: 'breathe in…', duration: 3200 },
+    { text: 'hold…', duration: 1600 },
+    { text: 'breathe out…', duration: 3200 }
+  ];
   let phaseIndex = 0;
-  setInterval(() => {
-    phaseIndex = (phaseIndex + 1) % phases.length;
-    breathLabel.textContent = phases[phaseIndex];
-  }, 2600);
+  function cycleBreath(){
+    breathLabel.textContent = phases[phaseIndex].text;
+    setTimeout(() => {
+      phaseIndex = (phaseIndex + 1) % phases.length;
+      cycleBreath();
+    }, phases[phaseIndex].duration);
+  }
+  cycleBreath();
 
   const prompts = [
     "What does the hollow feel like today, if you had to describe it?",
@@ -470,27 +489,56 @@
     "What's something you're carrying that you haven't said out loud yet?",
     "What would feel like enough for today — not everything, just enough?"
   ];
-  document.getElementById('journalPrompt').textContent =
-    prompts[Math.floor(Math.random() * prompts.length)];
+  let promptIndex = Math.floor(Math.random() * prompts.length);
+  const journalPromptEl = document.getElementById('journalPrompt');
+  journalPromptEl.textContent = prompts[promptIndex];
+  document.getElementById('newPromptBtn').onclick = () => {
+    let next = promptIndex;
+    while (next === promptIndex && prompts.length > 1){
+      next = Math.floor(Math.random() * prompts.length);
+    }
+    promptIndex = next;
+    journalPromptEl.textContent = prompts[promptIndex];
+  };
 
   const STORAGE_KEY = 'quietroom_entries';
   function loadEntries(){
     return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
   }
+  function saveEntries(entries){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  }
   function renderEntries(){
     const entries = loadEntries();
     const wrap = document.getElementById('journalEntries');
     wrap.innerHTML = '';
-    entries.slice().reverse().forEach(e => {
+    entries.slice().reverse().forEach((e, reverseIdx) => {
+      const realIdx = entries.length - 1 - reverseIdx;
       const div = document.createElement('div');
       div.className = 'entry';
+      div.style.position = 'relative';
+
       const date = document.createElement('span');
       date.className = 'entry-date';
       date.textContent = e.date;
+
       const p = document.createElement('p');
       p.textContent = e.text;
+      p.style.paddingRight = '50px';
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'Delete';
+      delBtn.style.cssText = 'position:absolute; top:14px; right:14px; background:none; border:none; color:#b08a7a; font-size:11px; text-decoration:underline; cursor:pointer;';
+      delBtn.onclick = () => {
+        const current = loadEntries();
+        current.splice(realIdx, 1);
+        saveEntries(current);
+        renderEntries();
+      };
+
       div.appendChild(date);
       div.appendChild(p);
+      div.appendChild(delBtn);
       wrap.appendChild(div);
     });
   }
@@ -500,13 +548,19 @@
     if (!text) return;
     const entries = loadEntries();
     entries.push({ text, date: new Date().toLocaleDateString(undefined, { month:'short', day:'numeric', year:'numeric' }) });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    saveEntries(entries);
     textarea.value = '';
     document.getElementById('journalStatus').textContent = 'Saved.';
     setTimeout(() => {
       document.getElementById('journalStatus').textContent = 'Saved privately on this device.';
     }, 2000);
     renderEntries();
+  };
+  document.getElementById('clearAllBtn').onclick = () => {
+    if (confirm('Delete all journal entries from this device? This can\'t be undone.')){
+      localStorage.removeItem(STORAGE_KEY);
+      renderEntries();
+    }
   };
   renderEntries();
 </script>
