@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Quiet Room — a space when it feels hollow</title>
+<meta name="description" content="A quiet place for grounding, small affirmations, private journaling, and real support when things feel hollow.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dawn-top: #1b2233;
+    --dawn-mid: #3c4c60;
+    --dawn-glow: #e3b98f;
+    --paper: #f4efe6;
+    --ink: #2a2620;
+    --sage: #8fae8b;
+    --coral: #d98a72;
+    --dim: #b9b2a4;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--dawn-top);
+    color:var(--paper);
+    font-family:'Work Sans',sans-serif;
+    line-height:1.5;
+  }
+  ::selection{background:var(--coral); color:#1b1a17;}
+  a{color:inherit;}
+
+  section{padding:100px 24px;}
+
+  /* HERO — breathing sky */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:80px 24px;
+    background:linear-gradient(to bottom, var(--dawn-top) 0%, var(--dawn-mid) 55%, var(--dawn-glow) 130%);
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    font-family:'Work Sans',sans-serif;
+    font-size:11px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--dim);
+    margin-bottom:24px;
+  }
+  .hero h1{
+    font-family:'Source Serif 4',serif;
+    font-weight:500;
+    font-size:clamp(32px,7vw,58px);
+    line-height:1.15;
+    max-width:680px;
+  }
+  .hero p{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:clamp(16px,3vw,19px);
+    color:var(--dim);
+    max-width:480px;
+    margin:22px auto 0;
+  }
+  .hero-cta{
+    margin-top:44px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(244,239,230,.08);
+    border:1px solid rgba(244,239,230,.25);
+    color:var(--paper);
+    padding:16px 30px;
+    border-radius:40px;
+    text-decoration:none;
+    font-size:14px;
+    letter-spacing:.03em;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .hero-cta:hover{background:rgba(244,239,230,.16); border-color:var(--coral);}
+
+  .nav{
+    position:absolute; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 24px;
+    z-index:5;
+  }
+  .nav .word{
+    font-family:'Source Serif 4',serif;
+    font-size:16px;
+    letter-spacing:.02em;
+  }
+  .nav a.link{
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--dim);
+    margin-left:20px;
+  }
+  .nav a.link:hover{color:var(--paper);}
+
+  /* SECTION SHARED */
+  .section-head{
+    max-width:600px;
+    margin:0 auto 48px;
+    text-align:center;
+  }
+  .section-head .eyebrow{
+    font-size:11px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--sage);
+    margin-bottom:14px;
+  }
+  .section-head h2{
+    font-family:'Source Serif 4',serif;
+    font-weight:500;
+    font-size:clamp(26px,5vw,38px);
+    line-height:1.2;
+  }
+  .section-head p{
+    margin-top:14px;
+    color:var(--dim);
+    font-size:15px;
+  }
+
+  /* BREATHING EXERCISE */
+  .breathe{background:var(--dawn-mid);}
+  .breath-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:36px;
+  }
+  .breath-circle{
+    width:180px; height:180px;
+    border-radius:50%;
+    border:1px solid rgba(244,239,230,.35);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .breath-circle::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(143,174,139,.5), rgba(217,138,114,.15));
+    animation:breathe 8s ease-in-out infinite;
+  }
+  .breath-label{
+    position:relative; z-index:1;
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:16px;
+  }
+  @keyframes breathe{
+    0%,100%{transform:scale(.75); opacity:.6;}
+    40%{transform:scale(1.15); opacity:1;}
+    60%{transform:scale(1.15); opacity:1;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .breath-circle::before{animation:none;}
+  }
+  .breath-caption{
+    font-size:13px;
+    color:var(--dim);
+    max-width:340px;
+    text-align:center;
+  }
+
+  /* AFFIRMATIONS */
+  .affirm-card{
+    max-width:520px;
+    margin:0 auto;
+    background:rgba(244,239,230,.05);
+    border:1px solid rgba(244,239,230,.15);
+    border-radius:12px;
+    padding:44px 34px;
+    text-align:center;
+  }
+  .affirm-text{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:clamp(19px,4vw,24px);
+    line-height:1.5;
+  }
+  .affirm-controls{
+    display:flex; justify-content:center; gap:14px; margin-top:30px;
+  }
+  .affirm-btn{
+    background:transparent;
+    border:1px solid rgba(244,239,230,.3);
+    color:var(--paper);
+    padding:10px 22px;
+    border-radius:30px;
+    font-size:12px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .affirm-btn:hover{border-color:var(--sage); background:rgba(143,174,139,.12);}
+
+  /* JOURNAL */
+  .journal{background:var(--paper); color:var(--ink);}
+  .journal .section-head .eyebrow{color:#6f8c6b;}
+  .journal .section-head p{color:#6b6355;}
+  .prompt-box{
+    max-width:560px;
+    margin:0 auto;
+  }
+  .prompt-text{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:18px;
+    margin-bottom:16px;
+    color:#4a4436;
+  }
+  .journal textarea{
+    width:100%;
+    min-height:160px;
+    padding:18px;
+    background:#fffdf9;
+    border:1px solid #ddd3bd;
+    border-radius:8px;
+    color:var(--ink);
+    font-family:'Work Sans',sans-serif;
+    font-size:15px;
+    resize:vertical;
+  }
+  .journal-row{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:14px;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .journal-note{
+    font-size:12px;
+    color:#8a8065;
+  }
+  .journal-btn{
+    background:var(--sage);
+    color:#1b2418;
+    border:none;
+    padding:12px 22px;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.03em;
+    cursor:pointer;
+  }
+  .journal-saved{
+    margin-top:26px;
+    max-width:560px;
+    margin-left:auto; margin-right:auto;
+  }
+  .entry{
+    background:#fffdf9;
+    border:1px solid #e8ddc4;
+    border-left:3px solid var(--sage);
+    border-radius:4px;
+    padding:16px 18px;
+    margin-bottom:12px;
+    font-size:14px;
+  }
+  .entry-date{
+    display:block;
+    font-size:11px;
+    color:#9a8f74;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    margin-bottom:6px;
+  }
+
+  /* RESOURCES */
+  .resources{background:#171e2c;}
+  .res-grid{
+    max-width:640px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .res-card{
+    background:rgba(244,239,230,.05);
+    border:1px solid rgba(244,239,230,.15);
+    border-radius:10px;
+    padding:22px 24px;
+  }
+  .res-card h3{
+    font-family:'Source Serif 4',serif;
+    font-weight:500;
+    font-size:17px;
+    margin-bottom:6px;
+  }
+  .res-card p{
+    font-size:13px;
+    color:var(--dim);
+    margin-bottom:10px;
+  }
+  .res-card a{
+    font-size:13px;
+    color:var(--coral);
+    text-decoration:none;
+    border-bottom:1px solid rgba(217,138,114,.4);
+  }
+
+  footer{
+    text-align:center;
+    padding:50px 24px 60px;
+    background:#12172280;
+  }
+  footer .word{
+    font-family:'Source Serif 4',serif;
+    font-size:16px;
+    margin-bottom:14px;
+  }
+  footer p{
+    font-size:12px;
+    color:var(--dim);
+    max-width:420px;
+    margin:0 auto 6px;
+    line-height:1.6;
+  }
+  footer .fine{
+    margin-top:18px;
+    font-size:11px;
+    color:#766f60;
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="nav">
+    <div class="word">The Quiet Room</div>
+    <div>
+      <a class="link" href="#ground">Ground</a>
+      <a class="link" href="#journal">Journal</a>
+      <a class="link" href="#support">Support</a>
+    </div>
+  </div>
+  <div class="hero-eyebrow">a space, not a fix</div>
+  <h1>You don't have to fill it today.</h1>
+  <p>Some days feel hollow. This is a place to sit with that for a minute — breathe, write, or just read something true — before you carry it any further.</p>
+  <a class="hero-cta" href="#ground">Begin here ↓</a>
+</section>
+
+<section class="breathe" id="ground">
+  <div class="section-head">
+    <div class="eyebrow">Ground</div>
+    <h2>Just breathe with it for a moment.</h2>
+    <p>No app can breathe for you, but pacing helps. Follow the circle — in as it grows, out as it settles.</p>
+  </div>
+  <div class="breath-wrap">
+    <div class="breath-circle"><span class="breath-label" id="breathLabel">in… out…</span></div>
+    <p class="breath-caption">If your mind wanders, that's normal. Just come back to the circle when you notice.</p>
+  </div>
+</section>
+
+<section id="affirm">
+  <div class="section-head">
+    <div class="eyebrow">Something True</div>
+    <h2>A small thing to hold onto</h2>
+  </div>
+  <div class="affirm-card">
+    <p class="affirm-text" id="affirmText">Loading...</p>
+    <div class="affirm-controls">
+      <button class="affirm-btn" id="affirmNext">Another one</button>
+    </div>
+  </div>
+</section>
+
+<section class="journal" id="journal">
+  <div class="section-head">
+    <div class="eyebrow">Write It Down</div>
+    <h2>This stays here — just for you</h2>
+    <p>Nothing you write leaves this device. No account, no one reading it but you.</p>
+  </div>
+  <div class="prompt-box">
+    <p class="prompt-text" id="journalPrompt">What does the hollow feel like today, if you had to describe it?</p>
+    <textarea id="journalText" placeholder="Start wherever feels honest..."></textarea>
+    <div class="journal-row">
+      <span class="journal-note" id="journalStatus">Saved privately on this device.</span>
+      <button class="journal-btn" id="journalSave">Save entry</button>
+    </div>
+  </div>
+  <div class="journal-saved" id="journalEntries"></div>
+</section>
+
+<section class="resources" id="support">
+  <div class="section-head">
+    <div class="eyebrow">If It's More Than a Quiet Day</div>
+    <h2>Real support, from real people</h2>
+    <p>This space isn't therapy and isn't a substitute for professional care. If things feel heavier than "hollow," please reach for one of these.</p>
+  </div>
+  <div class="res-grid">
+    <div class="res-card">
+      <h3>988 Suicide & Crisis Lifeline (US)</h3>
+      <p>Call or text 988, any time, for any kind of crisis — not just suicidal thoughts. Free and confidential.</p>
+      <a href="tel:988">Call 988</a>
+    </div>
+    <div class="res-card">
+      <h3>Crisis Text Line</h3>
+      <p>Text HOME to 741741 to reach a trained crisis counselor, 24/7, from anywhere in the US.</p>
+      <a href="sms:741741&body=HOME">Text 741741</a>
+    </div>
+    <div class="res-card">
+      <h3>Outside the US</h3>
+      <p>Findahelpline.com lists free, confidential crisis lines by country.</p>
+      <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a>
+    </div>
+    <div class="res-card">
+      <h3>Looking for ongoing support</h3>
+      <p>Psychology Today's directory can help you find a licensed therapist near you, including ones with sliding-scale fees.</p>
+      <a href="https://www.psychologytoday.com/us/therapists" target="_blank" rel="noopener">Find a therapist</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="word">The Quiet Room</div>
+  <p>Built for the days that feel emptier than others. You're allowed to take up space here.</p>
+  <p class="fine">© 2026. Not a substitute for professional care.</p>
+</footer>
+
+<script>
+  const affirmations = [
+    "Feeling hollow isn't the same as being broken. It's just a season, and seasons move.",
+    "You don't have to explain the emptiness to anyone for it to be real.",
+    "Whatever you're carrying today, you're allowed to set it down for five minutes.",
+    "Healing isn't a straight line. Some days will just be about getting through them.",
+    "You're not behind. You're just in a part of the story that doesn't feel good to be in yet.",
+    "It's okay to miss something that wasn't good for you. That's not weakness, that's memory.",
+    "You don't need to feel whole today to be worthy of rest.",
+    "The quiet doesn't mean nothing is happening. Sometimes it means you're healing underneath it.",
+    "You are allowed to take up space, even on the days you feel like less of yourself.",
+    "This feeling is loud right now, but it is not permanent, and it is not the whole of you."
+  ];
+
+  let affirmIndex = Math.floor(Math.random() * affirmations.length);
+  const affirmText = document.getElementById('affirmText');
+  function showAffirmation(){
+    affirmText.textContent = '"' + affirmations[affirmIndex] + '"';
+  }
+  document.getElementById('affirmNext').onclick = () => {
+    affirmIndex = (affirmIndex + 1) % affirmations.length;
+    showAffirmation();
+  };
+  showAffirmation();
+
+  const breathLabel = document.getElementById('breathLabel');
+  const phases = ['breathe in…', 'hold…', 'breathe out…'];
+  let phaseIndex = 0;
+  setInterval(() => {
+    phaseIndex = (phaseIndex + 1) % phases.length;
+    breathLabel.textContent = phases[phaseIndex];
+  }, 2600);
+
+  const prompts = [
+    "What does the hollow feel like today, if you had to describe it?",
+    "What's one small thing that felt real today, even for a second?",
+    "If the hollow could talk, what would it be trying to tell you?",
+    "What's something you're carrying that you haven't said out loud yet?",
+    "What would feel like enough for today — not everything, just enough?"
+  ];
+  document.getElementById('journalPrompt').textContent =
+    prompts[Math.floor(Math.random() * prompts.length)];
+
+  const STORAGE_KEY = 'quietroom_entries';
+  function loadEntries(){
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  }
+  function renderEntries(){
+    const entries = loadEntries();
+    const wrap = document.getElementById('journalEntries');
+    wrap.innerHTML = '';
+    entries.slice().reverse().forEach(e => {
+      const div = document.createElement('div');
+      div.className = 'entry';
+      const date = document.createElement('span');
+      date.className = 'entry-date';
+      date.textContent = e.date;
+      const p = document.createElement('p');
+      p.textContent = e.text;
+      div.appendChild(date);
+      div.appendChild(p);
+      wrap.appendChild(div);
+    });
+  }
+  document.getElementById('journalSave').onclick = () => {
+    const textarea = document.getElementById('journalText');
+    const text = textarea.value.trim();
+    if (!text) return;
+    const entries = loadEntries();
+    entries.push({ text, date: new Date().toLocaleDateString(undefined, { month:'short', day:'numeric', year:'numeric' }) });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    textarea.value = '';
+    document.getElementById('journalStatus').textContent = 'Saved.';
+    setTimeout(() => {
+      document.getElementById('journalStatus').textContent = 'Saved privately on this device.';
+    }, 2000);
+    renderEntries();
+  };
+  renderEntries();
+</script>
+</body>
+</html>
