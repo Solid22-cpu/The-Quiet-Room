@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Quiet Room — a space when it feels hollow</title>
 <meta name="description" content="A quiet place for grounding, small affirmations, private journaling, and real support when things feel hollow.">
+<meta property="og:title" content="The Quiet Room — a space when it feels hollow">
+<meta property="og:description" content="Grounding, small affirmations, private journaling, and real support — for the days that feel emptier than others.">
+<meta property="og:url" content="https://solid22-cpu.github.io/The-Quiet-Room/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Quiet Room — a space when it feels hollow">
+<meta name="twitter:description" content="Grounding, small affirmations, private journaling, and real support.">
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#1b2233">
 <link rel="apple-touch-icon" href="./icon.svg">
@@ -341,6 +348,8 @@
 </head>
 <body>
 
+<button id="quickLeave" style="position:fixed; top:16px; right:16px; z-index:50; background:rgba(20,26,48,.75); backdrop-filter:blur(6px); border:1px solid rgba(244,239,230,.25); color:#f4efe6; font-family:'Work Sans',sans-serif; font-size:11px; letter-spacing:.05em; padding:8px 14px; border-radius:20px; cursor:pointer;">Quick leave ✕</button>
+
 <section class="hero">
   <div class="nav">
     <div class="word">The Quiet Room</div>
@@ -360,12 +369,28 @@
 <section class="breathe" id="ground">
   <div class="section-head">
     <div class="eyebrow">Ground</div>
-    <h2>Just breathe with it for a moment.</h2>
-    <p>No app can breathe for you, but pacing helps. Follow the circle — in as it grows, out as it settles.</p>
+    <h2 id="groundHeading">Just breathe with it for a moment.</h2>
+    <p id="groundSub">No app can breathe for you, but pacing helps. Follow the circle — in as it grows, out as it settles.</p>
   </div>
-  <div class="breath-wrap">
-    <div class="breath-circle"><span class="breath-label" id="breathLabel">in… out…</span></div>
-    <p class="breath-caption">If your mind wanders, that's normal. Just come back to the circle when you notice.</p>
+
+  <div style="display:flex; justify-content:center; gap:10px; margin-bottom:40px;">
+    <button class="affirm-btn" id="techBreath" style="border-color:var(--sage); background:rgba(143,174,139,.15);">Breathing</button>
+    <button class="affirm-btn" id="techSenses">5-4-3-2-1</button>
+  </div>
+
+  <div id="breathPanel">
+    <div class="breath-wrap">
+      <div class="breath-circle"><span class="breath-label" id="breathLabel">in… out…</span></div>
+      <p class="breath-caption">If your mind wanders, that's normal. Just come back to the circle when you notice.</p>
+    </div>
+  </div>
+
+  <div id="sensesPanel" style="display:none; max-width:480px; margin:0 auto; text-align:center;">
+    <p class="breath-caption" style="margin-bottom:24px;">Name them slowly, in your head or out loud. There's no rush.</p>
+    <div id="sensesStep" style="background:rgba(244,239,230,.06); border:1px solid rgba(244,239,230,.18); border-radius:12px; padding:34px 24px; margin-bottom:20px;">
+      <p style="font-family:'Source Serif 4',serif; font-style:italic; font-size:20px;" id="sensesText">5 things you can see</p>
+    </div>
+    <button class="affirm-btn" id="sensesNext" style="border-color:var(--coral);">Next</button>
   </div>
 </section>
 
@@ -387,6 +412,11 @@
     <div class="eyebrow">Write It Down</div>
     <h2>This stays here — just for you</h2>
     <p>Nothing you write leaves this device. No account, no one reading it but you.</p>
+  </div>
+  <div style="display:flex; justify-content:center; gap:10px; margin-bottom:26px; flex-wrap:wrap;">
+    <button class="affirm-btn mood-btn" data-mood="checkin" style="border-color:var(--sage); background:rgba(143,174,139,.15);">Just checking in</button>
+    <button class="affirm-btn mood-btn" data-mood="loss">Processing a loss</button>
+    <button class="affirm-btn mood-btn" data-mood="anxious">Feeling anxious</button>
   </div>
   <div class="prompt-box">
     <p class="prompt-text" id="journalPrompt">What does the hollow feel like today, if you had to describe it?</p>
@@ -416,21 +446,25 @@
       <h3>988 Suicide & Crisis Lifeline (US)</h3>
       <p>Call or text 988, any time, for any kind of crisis — not just suicidal thoughts. Free and confidential.</p>
       <a href="tel:988">Call 988</a>
+      <div style="font-size:11px; color:#8b8574; margin-top:6px;">Opens your phone's dialer</div>
     </div>
     <div class="res-card">
       <h3>Crisis Text Line</h3>
       <p>Text HOME to 741741 to reach a trained crisis counselor, 24/7, from anywhere in the US.</p>
       <a href="sms:741741&body=HOME">Text 741741</a>
+      <div style="font-size:11px; color:#8b8574; margin-top:6px;">Opens your messages app</div>
     </div>
     <div class="res-card">
       <h3>Outside the US</h3>
       <p>Findahelpline.com lists free, confidential crisis lines by country.</p>
       <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a>
+      <div style="font-size:11px; color:#8b8574; margin-top:6px;">Opens in a new tab</div>
     </div>
     <div class="res-card">
       <h3>Looking for ongoing support</h3>
       <p>Psychology Today's directory can help you find a licensed therapist near you, including ones with sliding-scale fees.</p>
       <a href="https://www.psychologytoday.com/us/therapists" target="_blank" rel="noopener">Find a therapist</a>
+      <div style="font-size:11px; color:#8b8574; margin-top:6px;">Opens in a new tab</div>
     </div>
   </div>
 </section>
@@ -486,13 +520,72 @@
   }
   cycleBreath();
 
-  const prompts = [
-    "What does the hollow feel like today, if you had to describe it?",
-    "What's one small thing that felt real today, even for a second?",
-    "If the hollow could talk, what would it be trying to tell you?",
-    "What's something you're carrying that you haven't said out loud yet?",
-    "What would feel like enough for today — not everything, just enough?"
+  // Grounding technique toggle
+  const techBreathBtn = document.getElementById('techBreath');
+  const techSensesBtn = document.getElementById('techSenses');
+  const breathPanel = document.getElementById('breathPanel');
+  const sensesPanel = document.getElementById('sensesPanel');
+
+  const senses = [
+    "5 things you can see",
+    "4 things you can touch",
+    "3 things you can hear",
+    "2 things you can smell",
+    "1 thing you can taste",
+    "Notice: you're here, right now, in this moment."
   ];
+  let sensesIndex = 0;
+  const sensesText = document.getElementById('sensesText');
+  document.getElementById('sensesNext').onclick = () => {
+    sensesIndex = (sensesIndex + 1) % senses.length;
+    sensesText.textContent = senses[sensesIndex];
+  };
+
+  techBreathBtn.onclick = () => {
+    breathPanel.style.display = 'block';
+    sensesPanel.style.display = 'none';
+    techBreathBtn.style.borderColor = 'var(--sage)';
+    techBreathBtn.style.background = 'rgba(143,174,139,.15)';
+    techSensesBtn.style.borderColor = 'rgba(244,239,230,.3)';
+    techSensesBtn.style.background = 'transparent';
+    document.getElementById('groundHeading').textContent = 'Just breathe with it for a moment.';
+    document.getElementById('groundSub').textContent = "No app can breathe for you, but pacing helps. Follow the circle — in as it grows, out as it settles.";
+  };
+  techSensesBtn.onclick = () => {
+    breathPanel.style.display = 'none';
+    sensesPanel.style.display = 'block';
+    sensesIndex = 0;
+    sensesText.textContent = senses[0];
+    techSensesBtn.style.borderColor = 'var(--coral)';
+    techSensesBtn.style.background = 'rgba(217,138,114,.15)';
+    techBreathBtn.style.borderColor = 'rgba(244,239,230,.3)';
+    techBreathBtn.style.background = 'transparent';
+    document.getElementById('groundHeading').textContent = 'Come back to the room around you.';
+    document.getElementById('groundSub').textContent = 'A slower way to ground — noticing what\'s actually here, one sense at a time.';
+  };
+
+  const promptTracks = {
+    checkin: [
+      "What does the hollow feel like today, if you had to describe it?",
+      "What's one small thing that felt real today, even for a second?",
+      "What would feel like enough for today — not everything, just enough?",
+      "What's one word for how today actually went?"
+    ],
+    loss: [
+      "What's something you're carrying that you haven't said out loud yet?",
+      "If the hollow could talk, what would it be trying to tell you?",
+      "What do you miss most — the person, or who you were with them?",
+      "What's one thing you'd want them to know, if they could hear it?"
+    ],
+    anxious: [
+      "What's the thought that keeps circling right now?",
+      "What's one thing that's actually true, separate from what you're afraid of?",
+      "If the anxious feeling had a size, how big is it today?",
+      "What's one small thing within your control right now?"
+    ]
+  };
+  let currentMood = 'checkin';
+  let prompts = promptTracks[currentMood];
   let promptIndex = Math.floor(Math.random() * prompts.length);
   const journalPromptEl = document.getElementById('journalPrompt');
   journalPromptEl.textContent = prompts[promptIndex];
@@ -504,6 +597,21 @@
     promptIndex = next;
     journalPromptEl.textContent = prompts[promptIndex];
   };
+
+  document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mood-btn').forEach(b => {
+        b.style.borderColor = 'rgba(244,239,230,.3)';
+        b.style.background = 'transparent';
+      });
+      btn.style.borderColor = 'var(--sage)';
+      btn.style.background = 'rgba(143,174,139,.15)';
+      currentMood = btn.getAttribute('data-mood');
+      prompts = promptTracks[currentMood];
+      promptIndex = Math.floor(Math.random() * prompts.length);
+      journalPromptEl.textContent = prompts[promptIndex];
+    });
+  });
 
   const STORAGE_KEY = 'quietroom_entries';
   function loadEntries(){
@@ -574,6 +682,11 @@
       navigator.serviceWorker.register('./service-worker.js').catch(() => {});
     });
   }
+
+  // Quick leave — instantly navigate away, replacing this page in history
+  document.getElementById('quickLeave').onclick = () => {
+    window.location.replace('https://www.google.com');
+  };
 </script>
 </body>
 </html>
