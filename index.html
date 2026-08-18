@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Quiet Room — a space when it feels hollow</title>
 <meta name="description" content="A quiet place for grounding, small affirmations, private journaling, and real support when things feel hollow.">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#1b2233">
+<link rel="apple-touch-icon" href="./icon.svg">
+<link rel="icon" type="image/svg+xml" href="./icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -563,6 +567,13 @@
     }
   };
   renderEntries();
+
+  // Register service worker for offline support + home-screen install
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+    });
+  }
 </script>
 </body>
 </html>
