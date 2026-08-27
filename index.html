@@ -339,6 +339,7 @@ color:#766f60;
 <div style="display:flex; align-items:center; flex-wrap:wrap; justify-content:flex-end; gap:4px;">
 <a class="link" href="#ground" data-i18n="nav_ground">Ground</a>
 <a class="link" href="#journal" data-i18n="nav_journal">Journal</a>
+<a class="link" href="#move" data-i18n="nav_move">Move</a>
 <a class="link" href="#support" data-i18n="nav_support">Support</a>
 <a class="link" href="https://solid22-cpu.github.io/Solid22-site/" target="_blank" rel="noopener">Solid22 ↗</a>
 <div id="langSwitch" style="position:relative; margin-left:14px;">
@@ -419,6 +420,26 @@ color:#766f60;
 <button id="clearAllBtn" style="background:none; border:none; color:#a08f6f; font-size:12px; text-decoration:underline; cursor:pointer;" data-i18n="clear_all">Clear all entries from this device</button>
 </div>
 </section>
+<section class="journal" id="move">
+<div class="section-head">
+<div class="eyebrow" data-i18n="move_eyebrow">If Your Body Wants To</div>
+<h2 data-i18n="move_h2">A slower way to move, if you want to</h2>
+<p data-i18n="move_p">No streaks, no numbers to hit. Just a place to note what you did, and how it felt after.</p>
+</div>
+<div class="prompt-box">
+<input type="text" id="moveActivity" data-i18n-placeholder="move_activity_placeholder" placeholder="What did you do? (a walk, stretching, lifting...)" style="width:100%; padding:16px 18px; background:#fffdf9; border:1px solid #ddd3bd; border-radius:8px; color:var(--ink); font-family:'Work Sans',sans-serif; font-size:15px; margin-bottom:12px;">
+<input type="text" id="moveDuration" data-i18n-placeholder="move_duration_placeholder" placeholder="How long? (optional)" style="width:100%; padding:16px 18px; background:#fffdf9; border:1px solid #ddd3bd; border-radius:8px; color:var(--ink); font-family:'Work Sans',sans-serif; font-size:15px; margin-bottom:12px;">
+<textarea id="moveNote" data-i18n-placeholder="move_note_placeholder" placeholder="How did it feel, after?" style="min-height:100px;"></textarea>
+<div class="journal-row">
+<span class="journal-note" id="moveStatus" data-i18n="move_status_default">Saved privately on this device.</span>
+<button class="journal-btn" id="moveSave" data-i18n="move_save">Save log</button>
+</div>
+</div>
+<div class="journal-saved" id="moveEntries"></div>
+<div style="max-width:560px; margin:26px auto 0; text-align:right;">
+<button id="moveClearAllBtn" style="background:none; border:none; color:#a08f6f; font-size:12px; text-decoration:underline; cursor:pointer;" data-i18n="move_clear_all">Clear all logs from this device</button>
+</div>
+</section>
 <section class="resources" id="support">
 <div class="section-head">
 <div class="eyebrow" data-i18n="support_eyebrow">If It's More Than a Quiet Day</div>
@@ -460,7 +481,7 @@ color:#766f60;
 <script>
 const translations = {
 en: {
-nav_ground: "Ground", nav_journal: "Journal", nav_support: "Support",
+nav_ground: "Ground", nav_journal: "Journal", nav_move: "Move", nav_support: "Support",
 hero_eyebrow: "a space, not a fix",
 hero_h1: "You don't have to fill it today.",
 hero_p: "Some days feel hollow. This is a place to sit with that for a minute — breathe, write, or just read something true — before you carry it any further.",
@@ -485,6 +506,17 @@ journal_status_saved: "Saved.",
 new_prompt: "New prompt", save_entry: "Save entry", clear_all: "Clear all entries from this device",
 clear_confirm: "Delete all journal entries from this device? This can't be undone.",
 delete_label: "Delete",
+move_eyebrow: "If Your Body Wants To",
+move_h2: "A slower way to move, if you want to",
+move_p: "No streaks, no numbers to hit. Just a place to note what you did, and how it felt after.",
+move_activity_placeholder: "What did you do? (a walk, stretching, lifting...)",
+move_duration_placeholder: "How long? (optional)",
+move_note_placeholder: "How did it feel, after?",
+move_status_default: "Saved privately on this device.",
+move_status_saved: "Saved.",
+move_save: "Save log",
+move_clear_all: "Clear all logs from this device",
+move_clear_confirm: "Delete all move logs from this device? This can't be undone.",
 support_eyebrow: "If It's More Than a Quiet Day",
 support_h2: "Real support, from real people",
 support_p: "This space isn't therapy and isn't a substitute for professional care. If things feel heavier than \"hollow,\" please reach for one of these.",
@@ -564,7 +596,7 @@ anxious: [
 dateLocale: 'en-US'
 },
 es: {
-nav_ground: "Terreno", nav_journal: "Diario", nav_support: "Apoyo",
+nav_ground: "Terreno", nav_journal: "Diario", nav_move: "Movimiento", nav_support: "Apoyo",
 hero_eyebrow: "un espacio, no una solución",
 hero_h1: "No tienes que llenarlo hoy.",
 hero_p: "Algunos días se sienten vacíos. Este es un lugar para sentarte con eso un minuto — respira, escribe, o solo lee algo verdadero — antes de seguir cargándolo.",
@@ -589,6 +621,17 @@ journal_status_saved: "Guardado.",
 new_prompt: "Nueva pregunta", save_entry: "Guardar entrada", clear_all: "Borrar todas las entradas de este dispositivo",
 clear_confirm: "¿Borrar todas las entradas del diario de este dispositivo? Esto no se puede deshacer.",
 delete_label: "Eliminar",
+move_eyebrow: "Si Tu Cuerpo Quiere",
+move_h2: "Una forma más lenta de moverte, si quieres",
+move_p: "Sin rachas, sin números que cumplir. Solo un lugar para anotar qué hiciste, y cómo te sentiste después.",
+move_activity_placeholder: "¿Qué hiciste? (una caminata, estiramientos, pesas...)",
+move_duration_placeholder: "¿Cuánto tiempo? (opcional)",
+move_note_placeholder: "¿Cómo te sentiste después?",
+move_status_default: "Guardado de forma privada en este dispositivo.",
+move_status_saved: "Guardado.",
+move_save: "Guardar registro",
+move_clear_all: "Borrar todos los registros de este dispositivo",
+move_clear_confirm: "¿Borrar todos los registros de movimiento de este dispositivo? Esto no se puede deshacer.",
 support_eyebrow: "Si Es Más Que Un Día Tranquilo",
 support_h2: "Apoyo real, de personas reales",
 support_p: "Este espacio no es terapia ni sustituye la atención profesional. Si las cosas se sienten más pesadas que \"vacío,\" por favor busca uno de estos recursos.",
@@ -668,7 +711,7 @@ anxious: [
 dateLocale: 'es-ES'
 },
 fr: {
-nav_ground: "Ancrage", nav_journal: "Journal", nav_support: "Soutien",
+nav_ground: "Ancrage", nav_journal: "Journal", nav_move: "Bouger", nav_support: "Soutien",
 hero_eyebrow: "un espace, pas une solution",
 hero_h1: "Tu n'as pas à le remplir aujourd'hui.",
 hero_p: "Certains jours semblent vides. C'est un endroit pour s'asseoir avec ça une minute — respirer, écrire, ou juste lire quelque chose de vrai — avant de continuer à le porter.",
@@ -693,6 +736,17 @@ journal_status_saved: "Enregistré.",
 new_prompt: "Nouvelle question", save_entry: "Enregistrer", clear_all: "Effacer toutes les entrées de cet appareil",
 clear_confirm: "Supprimer toutes les entrées du journal sur cet appareil ? C'est irréversible.",
 delete_label: "Supprimer",
+move_eyebrow: "Si Ton Corps En A Envie",
+move_h2: "Une façon plus lente de bouger, si tu le souhaites",
+move_p: "Pas de séries à tenir, pas de chiffres à atteindre. Juste un endroit pour noter ce que tu as fait, et comment tu t'es senti(e) après.",
+move_activity_placeholder: "Qu'as-tu fait ? (une marche, des étirements, de la musculation...)",
+move_duration_placeholder: "Combien de temps ? (facultatif)",
+move_note_placeholder: "Comment tu t'es senti(e), après ?",
+move_status_default: "Enregistré en privé sur cet appareil.",
+move_status_saved: "Enregistré.",
+move_save: "Enregistrer",
+move_clear_all: "Effacer tous les journaux de mouvement de cet appareil",
+move_clear_confirm: "Supprimer tous les journaux de mouvement de cet appareil ? C'est irréversible.",
 support_eyebrow: "Si C'est Plus Qu'une Journée Calme",
 support_h2: "Un vrai soutien, de vraies personnes",
 support_p: "Cet espace n'est pas une thérapie et ne remplace pas un suivi professionnel. Si les choses semblent plus lourdes que \"vide,\" contacte l'une de ces ressources.",
@@ -806,6 +860,7 @@ sensesText.textContent = dict.senses[0];
 promptIndex = Math.floor(Math.random() * dict.promptTracks[currentMood].length);
 journalPromptEl.textContent = dict.promptTracks[currentMood][promptIndex];
 document.getElementById('journalStatus').textContent = dict.journal_status_default;
+document.getElementById('moveStatus').textContent = dict.move_status_default;
 if (sensesPanel.style.display === 'block'){
 document.getElementById('groundHeading').textContent = dict.ground_h2_senses;
 document.getElementById('groundSub').textContent = dict.ground_sub_senses;
@@ -814,6 +869,7 @@ document.getElementById('groundHeading').textContent = dict.ground_h2_breath;
 document.getElementById('groundSub').textContent = dict.ground_sub_breath;
 }
 renderEntries();
+renderMoveEntries();
 }
 let affirmIndex = Math.floor(Math.random() * translations.en.affirmations.length);
 const affirmText = document.getElementById('affirmText');
@@ -965,6 +1021,82 @@ renderEntries();
 }
 };
 renderEntries();
+const MOVE_STORAGE_KEY = 'quietroom_move_entries';
+function loadMoveEntries(){
+return JSON.parse(localStorage.getItem(MOVE_STORAGE_KEY) || '[]');
+}
+function saveMoveEntries(entries){
+localStorage.setItem(MOVE_STORAGE_KEY, JSON.stringify(entries));
+}
+function renderMoveEntries(){
+const dict = translations[currentLang];
+const entries = loadMoveEntries();
+const wrap = document.getElementById('moveEntries');
+wrap.innerHTML = '';
+entries.slice().reverse().forEach((e, reverseIdx) => {
+const realIdx = entries.length - 1 - reverseIdx;
+const div = document.createElement('div');
+div.className = 'entry';
+div.style.position = 'relative';
+const date = document.createElement('span');
+date.className = 'entry-date';
+date.textContent = e.date;
+const activityLine = document.createElement('p');
+activityLine.style.fontWeight = '600';
+activityLine.style.marginBottom = '4px';
+activityLine.textContent = e.activity + (e.duration ? ' — ' + e.duration : '');
+const noteLine = document.createElement('p');
+noteLine.textContent = e.note;
+noteLine.style.paddingRight = '50px';
+noteLine.style.color = '#6b6355';
+const delBtn = document.createElement('button');
+delBtn.textContent = dict.delete_label;
+delBtn.style.cssText = 'position:absolute; top:14px; right:14px; background:none; border:none; color:#b08a7a; font-size:11px; text-decoration:underline; cursor:pointer;';
+delBtn.onclick = () => {
+const current = loadMoveEntries();
+current.splice(realIdx, 1);
+saveMoveEntries(current);
+renderMoveEntries();
+};
+div.appendChild(date);
+div.appendChild(activityLine);
+if (e.note) div.appendChild(noteLine);
+div.appendChild(delBtn);
+wrap.appendChild(div);
+});
+}
+document.getElementById('moveSave').onclick = () => {
+const dict = translations[currentLang];
+const activityInput = document.getElementById('moveActivity');
+const durationInput = document.getElementById('moveDuration');
+const noteInput = document.getElementById('moveNote');
+const activity = activityInput.value.trim();
+if (!activity) return;
+const entries = loadMoveEntries();
+entries.push({
+activity,
+duration: durationInput.value.trim(),
+note: noteInput.value.trim(),
+date: new Date().toLocaleDateString(dict.dateLocale, { month:'short', day:'numeric', year:'numeric' })
+});
+saveMoveEntries(entries);
+activityInput.value = '';
+durationInput.value = '';
+noteInput.value = '';
+document.getElementById('moveStatus').textContent = dict.move_status_saved;
+setTimeout(() => {
+document.getElementById('moveStatus').textContent = dict.move_status_default;
+}, 2000);
+renderMoveEntries();
+};
+document.getElementById('moveClearAllBtn').onclick = () => {
+const dict = translations[currentLang];
+if (confirm(dict.move_clear_confirm)){
+localStorage.removeItem(MOVE_STORAGE_KEY);
+renderMoveEntries();
+}
+};
+renderMoveEntries();
 if ('serviceWorker' in navigator) {
 window.addEventListener('load', () => {
 navigator.serviceWorker.register('./service-worker.js').catch(() => {});
